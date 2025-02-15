@@ -1,6 +1,5 @@
 from .base import *  # noqa: F403
-from .base import INSTALLED_APPS
-from .base import MIDDLEWARE
+from .base import INSTALLED_APPS, MIDDLEWARE, REST_FRAMEWORK
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -35,18 +34,18 @@ DEBUG_TOOLBAR_CONFIG = {
 # REST-FRAMEWORK
 # ------------------------------------------------------------------------------
 auth_list = [
-    'rest_framework_simplejwt.authentication.JWTAuthentication',
-    'rest_framework.authentication.SessionAuthentication',
-    'rest_framework.authentication.BasicAuthentication'
+    "rest_framework_simplejwt.authentication.JWTAuthentication",
+    "rest_framework.authentication.SessionAuthentication",
+    "rest_framework.authentication.BasicAuthentication",
 ]
-REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] = auth_list
-REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append('rest_framework.renderers.BrowsableAPIRenderer')
+REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] = auth_list
+
+REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append(
+    "rest_framework.renderers.BrowsableAPIRenderer"
+)
 
 # SWAGGER
 # ------------------------------------------------------------------------------
-SPECTACULAR_SETTINGS['SERVERS'] = [
-    {
-        "url": "http://127.0.0.1:8000",
-        "description": "Local Development server"
-    },
+SPECTACULAR_SETTINGS["SERVERS"] = [
+    {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
 ]

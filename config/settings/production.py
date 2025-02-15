@@ -15,8 +15,6 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 DATABASES["default"]["CONN_MAX_AGE"] = os.environ.get("CONN_MAX_AGE", default=60)
 
 
-
-
 # LOGGING
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging

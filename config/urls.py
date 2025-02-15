@@ -20,21 +20,35 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 from apps import users
 
 urlpatterns = [
     # admin
     path(os.environ.get("ADMIN_URL"), admin.site.urls),
-
     # swagger
-    path('os.environ.get("SWAGGER_DOWNLOAD_URL")', SpectacularAPIView.as_view(), name='schema'),
-    path(os.environ.get("SWAGGER_URL"), SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path(os.environ.get("REDOC_URL"), SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-
+    path(
+        'os.environ.get("SWAGGER_DOWNLOAD_URL")',
+        SpectacularAPIView.as_view(),
+        name="schema",
+    ),
+    path(
+        os.environ.get("SWAGGER_URL"),
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        os.environ.get("REDOC_URL"),
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
     # local apps
-    path('users/', include('apps.users.urls', namespace='users')),
+    path("users/", include("apps.users.urls", namespace="users")),
 ]
 
 if settings.DEBUG:

@@ -8,8 +8,17 @@ class CustomAutoSchema(AutoSchema):
         if self.method != "GET":
             return parameters
 
-        parameters.extend([
-            OpenApiParameter(name='page', description='Page number', required=False, type=int),
-            OpenApiParameter(name='page_size', description='Number of items per page', required=False, type=int)
-        ])
+        parameters.extend(
+            [
+                OpenApiParameter(
+                    name="page", description="Page number", required=False, type=int
+                ),
+                OpenApiParameter(
+                    name="page_size",
+                    description="Number of items per page",
+                    required=False,
+                    type=int,
+                ),
+            ]
+        )
         return parameters

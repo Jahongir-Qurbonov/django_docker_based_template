@@ -9,8 +9,9 @@ from apps.utils.pagination import CustomPageNumberPagination
 
 class CacheGenericListMixin:
     """
-        Inheriting from GenericView is required
+    Inheriting from GenericView is required
     """
+
     pass
     # cache_timeout = 30*60
     # cache_basename = None
@@ -30,8 +31,9 @@ class CacheGenericListMixin:
 
 class CacheGenericRetrieveMixin:
     """
-        Inheriting from GenericView is required
+    Inheriting from GenericView is required
     """
+
     pass
     # cache_timeout = 60*60*24
     # cache_basename = None
@@ -55,16 +57,14 @@ class CacheGenericRetrieveMixin:
 
 
 class CreateMixin:
-
     def create(self, request, *args, **kwargs):
         created_obj = super().create(request, *args, **kwargs)
-        obj = get_object_or_404(self.model, id=created_obj.data.get('id'))
+        obj = get_object_or_404(self.model, id=created_obj.data.get("id"))
         serializer = self.serializer_class(obj)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UpdateMixin:
-
     def update(self, request, *args, **kwargs):
         super().update(request, *args, **kwargs)
         obj = self.get_object()
@@ -73,17 +73,13 @@ class UpdateMixin:
 
 
 class DestroyMixin:
-
     def destroy(self, request, *args, **kwargs):
         obj = self.get_object()
         obj.is_deleted = True
-        if hasattr(obj, 'order'):
+        if hasattr(obj, "order"):
             obj.order = None
         obj.save()
-        data = {
-            "success": True,
-            "detail": _("Object deleted")
-        }
+        data = {"success": True, "detail": _("Object deleted")}
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -93,18 +89,17 @@ class CommonMixin(CreateMixin, UpdateMixin, DestroyMixin):
     serializer_post_class = None
 
     def get_serializer_class(self):
-        if self.action in ['create', 'update']:
+        if self.action in ["create", "update"]:
             assert self.serializer_post_class is not None, (
-                    "'%s' should either include a `serializer_class` attribute, "
-                    "or override the `get_serializer_class()` method."
-                    % self.__class__.__name__
+                "'%s' should either include a `serializer_class` attribute, "
+                "or override the `get_serializer_class()` method."
+                % self.__class__.__name__
             )
             return self.serializer_post_class
 
         assert self.serializer_class is not None, (
-                "'%s' should either include a `serializer_class` attribute, "
-                "or override the `get_serializer_class()` method."
-                % self.__class__.__name__
+            "'%s' should either include a `serializer_class` attribute, "
+            "or override the `get_serializer_class()` method." % self.__class__.__name__
         )
 
         return self.serializer_class
@@ -115,7 +110,7 @@ class MultiLanguageRetrieveMixin:
 
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
-        slug = self.kwargs.get('slug')
+        slug = self.kwargs.get("slug")
 
         try:
             obj = queryset.get(slug=slug)

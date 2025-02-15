@@ -19,23 +19,20 @@ def send_sms(user_id, phone: str) -> object:
     code = code_generator()
 
     data = {
-        "header": {
-            "login": username,
-            "pwd": password,
-            "CgPN": alias
-        },
-        "body": {
-            "message_id_in": message_id,
-            "CdPN": phone,
-            "text": code
-        }
+        "header": {"login": username, "pwd": password, "CgPN": alias},
+        "body": {"message_id_in": message_id, "CdPN": phone, "text": code},
     }
     response = requests.post(url, json=data)
 
-    expire_seconds = int(os.environ.get('EXPIRE_SECONDS'))
+    expire_seconds = int(os.environ.get("EXPIRE_SECONDS"))
     expire_date = datetime.datetime.now() + datetime.timedelta(seconds=expire_seconds)
-    encoded_content = base64.b64encode(code.encode('ascii')).decode('ascii')
+    encoded_content = base64.b64encode(code.encode("ascii")).decode("ascii")
 
-    UserResetToken.objects.create(user_id=user_id, message_id=message_id, content=encoded_content, expire_date=expire_date)
+    UserResetToken.objects.create(
+        user_id=user_id,
+        message_id=message_id,
+        content=encoded_content,
+        expire_date=expire_date,
+    )
 
     return response.json()

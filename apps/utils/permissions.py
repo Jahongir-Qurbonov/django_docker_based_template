@@ -8,22 +8,22 @@ def has_role(user: object, roles: list) -> bool:
 
 class IsAdmin(permissions.BasePermission):
     def has_permission(self, request, view):
-        return has_role(request.user, ['admin'])
+        return has_role(request.user, ["admin"])
 
     def has_object_permission(self, request, view, obj):
-        return has_role(request.user, ['admin'])
+        return has_role(request.user, ["admin"])
 
 
 class IsAdminOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return has_role(request.user, ['admin'])
+        return has_role(request.user, ["admin"])
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-        return has_role(request.user, ['admin'])
+        return has_role(request.user, ["admin"])
 
 
 class IsOwner(permissions.BasePermission):
