@@ -1,4 +1,0 @@
-# installing first base requirements
--r base.txt
-
-gunicorn==21.2.0
