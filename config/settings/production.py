@@ -1,8 +1,7 @@
 import os
 
 from .base import *  # noqa: F403
-from .base import DATABASES
-from .base import SPECTACULAR_SETTINGS
+from .base import DATABASES, SPECTACULAR_SETTINGS
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -12,7 +11,7 @@ DEBUG = False
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
 # DATABASES
 # ------------------------------------------------------------------------------
-DATABASES["default"]["CONN_MAX_AGE"] = os.environ.get("CONN_MAX_AGE", default=60)
+DATABASES["default"]["CONN_MAX_AGE"] = os.environ.get("CONN_MAX_AGE", default="60")
 
 
 # LOGGING

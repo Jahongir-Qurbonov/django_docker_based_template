@@ -1,5 +1,5 @@
 from .base import *  # noqa: F403
-from .base import INSTALLED_APPS, MIDDLEWARE, REST_FRAMEWORK
+from .base import INSTALLED_APPS, MIDDLEWARE, REST_FRAMEWORK, SPECTACULAR_SETTINGS
 
 # GENERAL
 # ------------------------------------------------------------------------------

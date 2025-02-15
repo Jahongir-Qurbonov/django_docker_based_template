@@ -14,6 +14,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from ..typing_extra import RestFrameworkSettings, SpectacularSettings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -62,7 +64,7 @@ MIDDLEWARE = [
 ]
 
 # CORS HEADERS
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS").split(";")
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "").split(";")
 
 CORS_ALLOW_METHODS = ["*"]
 
@@ -208,7 +210,7 @@ CELERY_APP_NAME = "config"
 # django-rest-framework
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
-REST_FRAMEWORK = {
+REST_FRAMEWORK: RestFrameworkSettings = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_SCHEMA_CLASS": "apps.utils.schemas.CustomAutoSchema",
     "DEFAULT_PARSER_CLASSES": [
@@ -226,7 +228,7 @@ REST_FRAMEWORK = {
 
 # SWAGGER
 # -------------------------------------------------------------------------------
-SPECTACULAR_SETTINGS = {
+SPECTACULAR_SETTINGS: SpectacularSettings = {
     "TITLE": "My Awesome Project API",
     "DESCRIPTION": "Documentation of API endpoints of My Awesome Project",
     "VERSION": "1.0.0",
