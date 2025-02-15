@@ -1,4 +1,4 @@
-FROM docker.io/python:3.12.7-slim-bullseye AS python
+FROM python:3.13-slim AS python
 
 WORKDIR /usr/src/app
 
@@ -16,15 +16,22 @@ RUN apt-get update --fix-missing && \
     python3-dev \
     libpq-dev \
     gettext \
-    shared-mime-info && \
+    shared-mime-info \
+    curl \
+    ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
- # Requirements are installed here to ensure they will be cached.
-COPY ./requirements ./requirements
+# Install Astral UV
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+ENV PATH="/root/.local/bin/:$PATH"
+ENV UV_PROJECT_ENVIRONMENT="/usr/local/"
 
-RUN pip install --upgrade pip setuptools wheel
+# Requirements are installed here to ensure they will be cached.
+COPY ./pyproject.toml uv.lock ./
 
-RUN pip install -r requirements/production.txt
+RUN uv pip install --upgrade pip setuptools wheel --system
+RUN uv sync --group production
 
 COPY ./compose/general/django/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint

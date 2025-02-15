@@ -8,5 +8,7 @@
 .readthedocs.yml
 .travis.yml
 venv
+.venv
+.mypy_cache
 .git
 .envs/
