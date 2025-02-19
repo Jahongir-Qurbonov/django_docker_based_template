@@ -40,9 +40,7 @@ auth_list = [
 ]
 REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] = auth_list
 
-REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append(
-    "rest_framework.renderers.BrowsableAPIRenderer"
-)
+REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append("rest_framework.renderers.BrowsableAPIRenderer")
 
 # SWAGGER
 # ------------------------------------------------------------------------------

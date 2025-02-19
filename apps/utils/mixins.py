@@ -92,8 +92,7 @@ class CommonMixin(CreateMixin, UpdateMixin, DestroyMixin):
         if self.action in ["create", "update"]:
             assert self.serializer_post_class is not None, (
                 "'%s' should either include a `serializer_class` attribute, "
-                "or override the `get_serializer_class()` method."
-                % self.__class__.__name__
+                "or override the `get_serializer_class()` method." % self.__class__.__name__
             )
             return self.serializer_post_class
 

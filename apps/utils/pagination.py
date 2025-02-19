@@ -26,9 +26,7 @@ class CustomPageNumberPagination(LimitOffsetPagination):
 
     def get_page_size(self, request):
         try:
-            return int(
-                request.query_params.get(self.page_size_query_param, self.default_limit)
-            )
+            return int(request.query_params.get(self.page_size_query_param, self.default_limit))
         except ValueError:
             return self.default_limit
 
@@ -50,17 +48,13 @@ class CustomPageNumberPagination(LimitOffsetPagination):
         if not self.has_next():
             return None
         url = self.request.build_absolute_uri()
-        return self._replace_query_param(
-            url, self.page_query_param, self.current_page + 1
-        )
+        return self._replace_query_param(url, self.page_query_param, self.current_page + 1)
 
     def get_previous_link(self):
         if not self.has_previous():
             return None
         url = self.request.build_absolute_uri()
-        return self._replace_query_param(
-            url, self.page_query_param, self.current_page - 1
-        )
+        return self._replace_query_param(url, self.page_query_param, self.current_page - 1)
 
     def has_next(self):
         return self.current_page * self.limit < self.count

@@ -5,13 +5,17 @@ from drf_spectacular.utils import OpenApiParameter
 class CustomAutoSchema(AutoSchema):
     def get_override_parameters(self):
         parameters = super().get_override_parameters()
+
         if self.method != "GET":
             return parameters
 
         parameters.extend(
             [
                 OpenApiParameter(
-                    name="page", description="Page number", required=False, type=int
+                    name="page",
+                    description="Page number",
+                    required=False,
+                    type=int,
                 ),
                 OpenApiParameter(
                     name="page_size",
@@ -21,4 +25,5 @@ class CustomAutoSchema(AutoSchema):
                 ),
             ]
         )
+
         return parameters
